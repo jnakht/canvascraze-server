@@ -36,6 +36,11 @@ async function run() {
         const result = await craftsCollection.insertOne(newCraft);
         res.send(result);
     })
+    app.get('/arts', async(req, res) => {
+        const cursor = craftsCollection.find();
+        const result = await cursor.toArray();
+        res.send(result);
+    })
 
 
 
