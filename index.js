@@ -49,6 +49,12 @@ async function run() {
       res.send(result);
     })
 
+    // get random 6 data
+    app.get('/random', async(req, res) => {
+      const random = await craftsCollection.aggregate([{$sample: {size: 6}}]).toArray();
+      res.send(random);
+    })
+
 
 
 
