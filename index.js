@@ -67,7 +67,7 @@ async function run() {
     const database = client.db("canvascrazeDB");
     const craftsCollection = database.collection("crafts");
     const newLetterEmailCollection = database.collection("newsletters");
-    // const categoriesCollection = database.collection("categories");
+    const categoriesCollection = database.collection("categories");
 
 
     app.post('/arts', async(req, res) => {
@@ -87,6 +87,12 @@ async function run() {
         const cursor = craftsCollection.find();
         const result = await cursor.toArray();
         res.send(result);
+    })
+
+    app.get('/categories', async(req, res) => {
+      const cursor = categoriesCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
     })
 
     app.get('/arts/:email', async(req, res) => {
