@@ -10,6 +10,8 @@ app.use(express.json());
 
 
 
+
+
     
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.almgwwe.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
@@ -28,7 +30,10 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
 
-    const craftsCollection = client.db("canvascrazeDB").collection("crafts");
+
+    const database = client.db("canvascrazeDB");
+    const craftsCollection = database.collection("crafts");
+    const newLetterEmailCollection = database.collection("newsletters");
 
 
     app.post('/arts', async(req, res) => {
@@ -36,6 +41,18 @@ async function run() {
         const result = await craftsCollection.insertOne(newCraft);
         res.send(result);
     })
+    app.post('/newsletters', async(req, res) => {
+      const newEmail = req.body;
+      const result = await newLetterEmailCollection.insertOne(newEmail);
+      res.send(result);
+    })
+    // app.post('/test', async(req, res) => {
+    //   const testData = req.body;
+    //   const result = await newLetterEmailCollection.insertOne(testData);
+    //   console.log('test hitting the server', testData, result);
+    //   res.send(result);
+    // })
+
     app.get('/arts', async(req, res) => {
         const cursor = craftsCollection.find();
         const result = await cursor.toArray();
@@ -51,7 +68,7 @@ async function run() {
 
     // get random 6 data
     app.get('/random', async(req, res) => {
-      const random = await craftsCollection.aggregate([{$sample: {size: 6}}]).toArray();
+      const random = await craftsCollection.aggregate([{$sample: {size: 20}}]).toArray();
       res.send(random);
     })
 
@@ -82,8 +99,8 @@ run().catch(console.dir);
 
 app.get('/', (req, res) => {
     res.send("canvascraze server is running now...");
-})
+});
 
 app.listen(port, ()=> {
     console.log(`Server is running on port: ${port}`);
-})
+});
