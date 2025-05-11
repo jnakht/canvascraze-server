@@ -11,6 +11,39 @@ app.use(express.json());
 
 
 
+const subcategories = [
+  {
+    subcategory_Name: "Wooden Furniture & Sculptures",
+    image: "https://ik.imagekit.io/ghlgoepam/New%20Folder/pexels-jonathanborba-3316922.jpg?updatedAt=1746960014712",
+    description: "Timeless craftsmanship meets nature’s charm — discover elegant furniture and hand-carved wooden sculptures made to elevate any space."
+  },
+  {
+    subcategory_Name: "Wooden Home Decor",
+    image: "https://ik.imagekit.io/ghlgoepam/New%20Folder/pexels-charlotte-may-5824520.jpg?updatedAt=1746960014527",
+    description: "Warm, earthy, and artfully crafted — explore decor that brings rustic beauty and natural textures into your home."
+  },
+  {
+    subcategory_Name: "Wooden Utensils and Kitchenware",
+    image: "https://ik.imagekit.io/ghlgoepam/New%20Folder/pexels-pavel-danilyuk-6996085.jpg?updatedAt=1746960012529",
+    description: "Functional meets artisanal — our handcrafted wooden kitchenware blends tradition, utility, and eco-conscious living."
+  },
+  {
+    subcategory_Name: "Jute Home Decor",
+    image: "https://ik.imagekit.io/ghlgoepam/New%20Folder/pexels-samjjohnson-15601758.jpg?updatedAt=1746960010695",
+    description: "Add a soft, sustainable touch with jute-crafted pieces — perfect for cozy corners, earthy aesthetics, and conscious styling."
+  },
+  {
+    subcategory_Name: "Jute Kitchenware & Utensils",
+    image: "https://ik.imagekit.io/ghlgoepam/New%20Folder/pexels-charlotte-may-5824485.jpg?updatedAt=1746960015165",
+    description: "Rustic and refined — our jute kitchen collection offers durable, eco-friendly accents for everyday elegance."
+  },
+  {
+    subcategory_Name: "Jute and Wooden Jewellery",
+    image: "https://ik.imagekit.io/ghlgoepam/New%20Folder/pexels-theplanetspeaks-10029928.jpg?updatedAt=1746960014137",
+    description: "Wear nature with pride — handcrafted jute and wooden jewelry designed for the bold, the earthy, and the inspired."
+  }
+];
+
 
     
 
@@ -34,6 +67,7 @@ async function run() {
     const database = client.db("canvascrazeDB");
     const craftsCollection = database.collection("crafts");
     const newLetterEmailCollection = database.collection("newsletters");
+    // const categoriesCollection = database.collection("categories");
 
 
     app.post('/arts', async(req, res) => {
@@ -46,12 +80,8 @@ async function run() {
       const result = await newLetterEmailCollection.insertOne(newEmail);
       res.send(result);
     })
-    // app.post('/test', async(req, res) => {
-    //   const testData = req.body;
-    //   const result = await newLetterEmailCollection.insertOne(testData);
-    //   console.log('test hitting the server', testData, result);
-    //   res.send(result);
-    // })
+    
+    
 
     app.get('/arts', async(req, res) => {
         const cursor = craftsCollection.find();
