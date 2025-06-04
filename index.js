@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const cors = require('cors');
 require('dotenv').config();
 const port = process.env.PORT || 5000;
@@ -394,11 +394,13 @@ async function run() {
     // allItemsCollection.deleteMany({});
     // allItemsCollection.insertMany(crafts);
 
+    // to add item to collection
     app.post('/arts', async(req, res) => {
         const newCraft =  req.body;
         const result = await allItemsCollection.insertOne(newCraft);
         res.send(result);
     })
+    // to store the newsletter email
     app.post('/newsletters', async(req, res) => {
       const newEmail = req.body;
       const result = await newLetterEmailCollection.insertOne(newEmail);
@@ -406,19 +408,25 @@ async function run() {
     })
     
     
-
+    // to get the gallery(all items)
     app.get('/arts', async(req, res) => {
         const cursor = allItemsCollection.find();
         const result = await cursor.toArray();
         res.send(result);
     })
-
+    // get a single card using id
+    app.get('/arts/:id', async(req, res) => {
+      const id = req.params.id;
+      const singleItem = await allItemsCollection.findOne({_id: new ObjectId(id)});
+      res.send(singleItem);
+    })
+    // to get the categories 
     app.get('/categories', async(req, res) => {
       const cursor = categoriesCollection.find();
       const result = await cursor.toArray();
       res.send(result);
     })
-
+    // to get the my creations of a user using email
     app.get('/arts/:email', async(req, res) => {
       const email = req.params.email;
       const query = {currentUserEmail: `${email}`};
