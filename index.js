@@ -427,7 +427,7 @@ async function run() {
       res.send(result);
     })
     // to get the my creations of a user using email
-    app.get('/arts/:email', async(req, res) => {
+    app.get('/arts/myCreation/:email', async(req, res) => {
       const email = req.params.email;
       const query = {currentUserEmail: `${email}`};
       const result = await allItemsCollection.find(query).toArray();
