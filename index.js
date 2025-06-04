@@ -421,7 +421,7 @@ async function run() {
 
     app.get('/arts/:email', async(req, res) => {
       const email = req.params.email;
-      const query = {email: `${email}`};
+      const query = {currentUserEmail: `${email}`};
       const result = await allItemsCollection.find(query).toArray();
       res.send(result);
     })
