@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: canvascraze-server
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node index.js
+    envVars:
+      - key: DB_USER
+        value: "<canvascraze-manager>"
+      - key: DB_PASS
+        value: "<jrjisan523296>"
