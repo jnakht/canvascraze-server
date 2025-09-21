@@ -7,6 +7,6 @@ services:
     startCommand: node index.js
     envVars:
       - key: DB_USER
-        value: "<canvascraze-manager>"
+        value: "canvascraze-manager"
       - key: DB_PASS
-        value: "<jrjisan523296>"
+        value: "jrjisan523296"
