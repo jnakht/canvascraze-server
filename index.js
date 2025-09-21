@@ -462,8 +462,8 @@ app.get('/', (req, res) => {
     res.send("canvascraze server is running now...");
 });
 
-// app.listen(port, ()=> {
-//     console.log(`Server is running on port: ${port}`);
-// });
+app.listen(port, ()=> {
+    console.log(`Server is running on port: ${port}`);
+});
 
 module.exports = app;
