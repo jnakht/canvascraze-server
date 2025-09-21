@@ -458,13 +458,6 @@ run().catch(console.dir);
 
 
 
-
-
-
-
-
-
-
 app.get('/', (req, res) => {
     res.send("canvascraze server is running now...");
 });
